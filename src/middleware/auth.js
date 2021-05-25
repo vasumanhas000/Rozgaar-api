@@ -14,10 +14,12 @@ const auth = async (req, res, next) => {
     .then(user => {
       const uid = user.uid;
       req.userId = uid;
-      req.idToken = idToken;
+      req.idToken = token;
+      console.log("success!");
       next();
     })
     .catch(error => {
+      console.log(error);
       res.status(404).send(error);
     });
 };
