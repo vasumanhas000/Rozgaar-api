@@ -35,7 +35,7 @@ const userSchema = new mongoose.Schema({
 
 userSchema.virtual("jobs", {
   ref: "Job",
-  localField: "uid",
+  localField: "_id",
   foreignField: "createdBy",
 });
 

@@ -16,12 +16,6 @@ const jobSchema = new mongoose.Schema({
   pincode: {
     type: Number,
     required: true,
-    validate(value) {
-      var re = "^[1-9][0-9]{5}$";
-      if (!re.test(value)) {
-        throw new Error("Pincode is invalid");
-      }
-    },
   },
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,

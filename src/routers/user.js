@@ -1,6 +1,7 @@
 const express = require("express");
 const router = new express.Router();
 const auth = require("../middleware/auth");
+const getUser = require("../functions/getUser");
 const User = require("../models/user");
 
 router.post("/users", auth, async (req, res) => {
@@ -17,15 +18,8 @@ router.post("/users", auth, async (req, res) => {
   }
 });
 
-router.get("/users/myProfile", auth, async (req, res) => {
-  try {
-    const user = await User.findOne({
-      uid: req.userId,
-    });
-    res.status(200).send(user);
-  } catch (err) {
-    res.status(404).send(err);
-  }
+router.get("/users/myProfile", auth, getUser, async (req, res) => {
+  res.status(200).send(req.user);
 });
 
 module.exports = router;
