@@ -27,15 +27,15 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     required: true,
   },
-  // uid: {
-  //   type: String,
-  //   required: true,
-  // },
+  uid: {
+    type: String,
+    required: true,
+  },
 });
 
 userSchema.virtual("jobs", {
   ref: "Job",
-  localField: "_id",
+  localField: "uid",
   foreignField: "createdBy",
 });
 

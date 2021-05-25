@@ -19,7 +19,7 @@ const jobSchema = new mongoose.Schema({
     validate(value) {
       var re = "^[1-9][0-9]{5}$";
       if (!re.test(value)) {
-        throw new Error("Phone Number is invalid");
+        throw new Error("Pincode is invalid");
       }
     },
   },
@@ -28,10 +28,12 @@ const jobSchema = new mongoose.Schema({
     required: true,
     ref: "User",
   },
-  applicants: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Worker",
-  },
+  applicants: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Worker",
+    },
+  ],
 });
 
 const Job = mongoose.model("Job", jobSchema);

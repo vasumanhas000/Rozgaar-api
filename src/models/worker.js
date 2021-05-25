@@ -27,7 +27,7 @@ const workerSchema = new mongoose.Schema({
   },
 });
 
-userSchema.virtual("applied", {
+workerSchema.virtual("applied", {
   ref: "Job",
   localField: "_id",
   foreignField: "applicants",
