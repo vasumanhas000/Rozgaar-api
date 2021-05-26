@@ -24,8 +24,9 @@ const jobSchema = new mongoose.Schema({
   },
   applicants: [
     {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Worker",
+      name: String,
+      phone: Number,
+      pinCode: Number,
     },
   ],
 });

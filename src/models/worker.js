@@ -27,12 +27,6 @@ const workerSchema = new mongoose.Schema({
   },
 });
 
-workerSchema.virtual("applied", {
-  ref: "Job",
-  localField: "_id",
-  foreignField: "applicants",
-});
-
 const Worker = mongoose.model("Worker", workerSchema);
 
 module.exports = Worker;

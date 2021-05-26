@@ -30,4 +30,33 @@ router.get("/jobs", auth, getUser, async (req, res) => {
   }
 });
 
+router.patch("/apply:id", auth, getUser, async (req, res) => {
+  if (req.user.isOrganization === true) {
+    const _id = req.params.id;
+    try {
+      const job = Job.findOne({ _id, createdBy: req.user._id });
+      const applicant = req.body;
+      job.applicants.push(applicant);
+      job.save();
+      res.status(202).send("Applicant posted successfully");
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  } else {
+    res.status(400).send("You're not an organization");
+  }
+});
+router.get("/getApplicants:id", auth, getUser, async (req, res) => {
+  const _id = req.params.id;
+  try {
+    const job = Job.findOne({ _id, createdBy: req.user._id });
+    if (!job) {
+      throw new Error("Job not found");
+    }
+    res.status(200).send(job.applicants);
+  } catch (err) {
+    res.status(404).send(err);
+  }
+});
+
 module.exports = router;
