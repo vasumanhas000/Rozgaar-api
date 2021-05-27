@@ -41,14 +41,20 @@ userSchema.virtual("jobs", {
 });
 
 // Deletes user jobs when user is removed
-userSchema.pre("remove", async function (next) {
-  const user = this;
-  console.log("in pre");
-  await Job.deleteMany({
-    createdBy: user._id,
-  });
-  next();
-});
+userSchema.pre(
+  "remove",
+  async function (next) {
+    const user = this;
+    console.log("in pre");
+    await Job.deleteMany({
+      createdBy: user._id,
+    });
+    next();
+  },
+  {
+    timestamps: true,
+  }
+);
 
 const User = mongoose.model("User", userSchema);
 
