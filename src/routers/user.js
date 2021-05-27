@@ -5,12 +5,11 @@ const getUser = require("../functions/getUser");
 const User = require("../models/user");
 
 router.post("/users", auth, async (req, res) => {
-  const user = new User({
-    ...req.body,
-    uid: req.userId,
-  });
-
   try {
+    const user = new User({
+      ...req.body,
+      uid: req.userId,
+    });
     await user.save();
     res.status(201).send(user);
   } catch (err) {

@@ -15,7 +15,6 @@ const auth = async (req, res, next) => {
       const uid = user.uid;
       req.userId = uid;
       req.idToken = token;
-      console.log("success!");
       next();
     })
     .catch(error => {

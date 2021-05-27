@@ -30,11 +30,13 @@ router.get("/jobs", auth, getUser, async (req, res) => {
   }
 });
 
-router.patch("/apply:id", auth, getUser, async (req, res) => {
+router.patch("/jobs/apply/:id", auth, getUser, async (req, res) => {
   if (req.user.isOrganization === true) {
     const _id = req.params.id;
+
     try {
-      const job = Job.findOne({ _id, createdBy: req.user._id });
+      const job = await Job.findOne({ _id, createdBy: req.user._id });
+      console.log(job);
       const applicant = req.body;
       job.applicants.push(applicant);
       job.save();
@@ -46,10 +48,10 @@ router.patch("/apply:id", auth, getUser, async (req, res) => {
     res.status(400).send("You're not an organization");
   }
 });
-router.get("/getApplicants:id", auth, getUser, async (req, res) => {
+router.get("/jobs/getApplicants/:id", auth, getUser, async (req, res) => {
   const _id = req.params.id;
   try {
-    const job = Job.findOne({ _id, createdBy: req.user._id });
+    const job = await Job.findOne({ _id, createdBy: req.user._id });
     if (!job) {
       throw new Error("Job not found");
     }
