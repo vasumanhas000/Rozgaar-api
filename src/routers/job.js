@@ -26,7 +26,7 @@ router.get("/jobs", auth, getUser, async (req, res) => {
       .execPopulate();
     res.status(201).send(req.user.jobs);
   } catch (err) {
-    res.status(404).send(err);
+    res.status(400).send(err);
   }
 });
 
