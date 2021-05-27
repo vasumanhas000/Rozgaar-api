@@ -21,4 +21,13 @@ router.get("/users/myProfile", auth, getUser, async (req, res) => {
   res.status(200).send(req.user);
 });
 
+router.delete("/users", auth, getUser, async (req, res) => {
+  try {
+    await req.user.remove();
+    res.send(req.user);
+  } catch (e) {
+    res.status(500).send();
+  }
+});
+
 module.exports = router;

@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Job = require("./job");
 const validator = require("validator");
 
 const userSchema = new mongoose.Schema({
@@ -40,5 +41,14 @@ userSchema.virtual("jobs", {
 });
 
 const User = mongoose.model("User", userSchema);
+
+// Deletes user jobs when user is removed
+userSchema.pre("remove", async function (next) {
+  const user = this;
+  await Job.deleteMany({
+    createdBy: user._id,
+  });
+  next();
+});
 
 module.exports = User;
