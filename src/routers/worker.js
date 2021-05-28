@@ -39,4 +39,15 @@ router.post("/workers/bulkAdd", auth, getUser, async (req, res) => {
   }
 });
 
+// adds worker using integromat
+router.post("/workers/add", async (req, res) => {
+  const worker = new Worker(req.body);
+  try {
+    await worker.save();
+    res.status(200).send(worker);
+  } catch (err) {
+    res.status(400).send(err);
+  }
+});
+
 module.exports = router;
