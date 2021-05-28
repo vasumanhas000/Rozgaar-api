@@ -5,7 +5,7 @@ const jobRouter = require("./routers/job");
 const workerRouter = require("./routers/worker");
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT;
 
 app.use(express.json());
 app.use(userRouter);
